@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 import { signIn, signUp } from "../../features/auth/authActions";
 
@@ -141,6 +141,27 @@ const Main = () => {
               </button>
             </div>
           </form>
+          <div className="w-full flex text-md">
+            {location.pathname === "/signup" ? (
+              <>
+                <div className="w-full flex justify-center">
+                  <p>Already have an account? </p>
+                  <Link to="/signin" className="ml-1 text-[#69D600]">
+                    Login
+                  </Link>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="w-full flex justify-center">
+                  <p>Create an account? </p>
+                  <Link to="/signup" className="ml-1 text-[#69D600]">
+                    Sign Up
+                  </Link>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </section>
     </main>

@@ -6,6 +6,7 @@ module.exports = {
       headerBackground: "#002245",
       buttonBackground: "#69D600",
       white: "#ffffff",
+      navBackground: "#EFF1F3",
     },
     fontSize: {
       sm: "12px",
