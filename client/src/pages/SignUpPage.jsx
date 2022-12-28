@@ -1,8 +1,8 @@
 import React from "react";
 
-import Header from "../components/SignUp/Header";
-import Main from "../components/SignUp/Main";
-import Footer from "../components/SignUp/Footer";
+import Header from "../components/Auth/Header";
+import Main from "../components/Auth/Main";
+import Footer from "../components/Auth/Footer";
 
 const SignUpPage = () => {
   return (
