@@ -24,5 +24,5 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api", auth);
 
 app.listen(PORT, () => {
-  console.log(`Server listening => ${PORT}`);
+  console.log(`Server listening => http://localhost:${PORT}`);
 });

@@ -11,6 +11,8 @@ const sendToken = (user, statusCode, res) => {
   };
 
   res.status(statusCode).cookie("token", token, options).send({
+    success: true,
+    user,
     token,
   });
 };
@@ -24,7 +26,6 @@ export const signUpUser = async (req, res, next) => {
 
       if (oldUser) {
         return res.status(406).send({
-          success: false,
           success: false,
           message: "User already exists",
         });
