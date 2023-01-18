@@ -8,11 +8,24 @@ module.exports = {
       white: "#ffffff",
       navBackground: "#EFF1F3",
     },
+    borderColor: {
+      primaryBorder: "#69D600",
+      secondaryBorder: "#EFF1F3",
+      headerBorder: "rgba(192, 192, 206, 0.5)",
+      inputBorder: "#002245",
+      dangerBorder: "#ff0000",
+    },
     fontSize: {
       sm: "12px",
       md: "14px",
       lg: "18px",
       xl: "23px",
+    },
+    screens: {
+      sm: "768px",
+      md: "1024px",
+      lg: "1280px",
+      xl: "1440px",
     },
     textColor: {
       primary: "#002245",
@@ -20,14 +33,9 @@ module.exports = {
       ternary: "#6C7293",
       green: "##69D600",
       white: "#ffffff",
-    },
-    borderColor: {
-      primaryBorder: "#69D600",
-      secondaryBorder: "#EFF1F3",
-      headerBorder: "rgba(192, 192, 206, 0.5)",
-      inputBorder: "#002245",
+      danger: "#ff0000",
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };

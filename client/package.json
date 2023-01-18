@@ -7,7 +7,8 @@
     "preinstall": "npx npm-force-resolutions",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "host": "vite --host"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -21,7 +22,11 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
     "react-scripts": "^5.0.1",
-    "redux": "^4.2.0"
+    "react-toastify": "^9.1.1",
+    "redux": "^4.2.0",
+    "socket.io-client": "^4.5.4",
+    "tailwind-scrollbar": "^2.1.0",
+    "timeago.js": "^4.0.2"
   },
   "devDependencies": {
     "@redux-devtools/core": "^3.13.1",

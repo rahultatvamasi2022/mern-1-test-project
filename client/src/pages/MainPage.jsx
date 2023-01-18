@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -6,10 +6,12 @@ import Header from "../components/Home/Header";
 import Main from "../components/Home/Main";
 import Footer from "../components/Home/Footer";
 
-const HomePage = () => {
+const HomePage = ({ children }) => {
   const navigate = useNavigate();
 
   const { isAuthenticated } = useSelector((state) => state.auth);
+
+  const [currentChat, setCurrentChat] = useState(null);
 
   useEffect(() => {
     if (!isAuthenticated) {

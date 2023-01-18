@@ -1,3 +1,13 @@
 @tailwind base;
+
+/* *::-webkit-scrollbar {
+  width: 15px;
+  scrollbar-width: 10px;
+  scroll-behavior: smooth;
+  background-color: #d31515;
+} */
+
 @tailwind components;
 @tailwind utilities;
+
+/* #f0f0f0 */
