@@ -1,19 +1,16 @@
-import Auth from "../models/auth.model.js";
-import jwt from "jsonwebtoken";
+import User from "../models/user.model.js";
+
+// const publicKey = fs.readFileSync("../public.key", "utf-8");
 
 const isAuthenticateUser = async (req, res, next) => {
   try {
-    const { token } = req.cookies;
-
-    if (!token) {
+    if (!req.session.userId) {
       return res.status(401).send({
-        message: "Please login to access this website",
+        message: "Login please",
       });
     }
 
-    const decodeData = jwt.verify(token, process.env.JWT_SECRET);
-
-    req.user = await Auth.findById(decodeData.id);
+    req.user = req.session.userId;
 
     next();
   } catch (error) {

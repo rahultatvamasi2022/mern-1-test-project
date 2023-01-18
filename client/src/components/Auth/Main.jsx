@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { signIn, signUp } from "../../features/auth/authActions";
 
@@ -9,9 +10,7 @@ const Main = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { isLoading, isSuccess, isAuthenticated, error } = useSelector(
-    (state) => state.auth
-  );
+  const { isAuthenticated, error } = useSelector((state) => state.auth);
 
   const [user, setUser] = useState({
     firstname: "",
@@ -47,7 +46,13 @@ const Main = () => {
     if (isAuthenticated) {
       navigate("/");
     }
-  }, [isAuthenticated, navigate]);
+
+    if (error) {
+      toast.error(error.error);
+    }
+  }, [isAuthenticated, navigate, error]);
+
+  // console.log(error);
 
   return (
     <main
@@ -55,7 +60,7 @@ const Main = () => {
         location.pathname === "/signup" ? "flex-row" : "flex-row-reverse"
       } justify-center my-16`}
     >
-      <section className="w-[600px] h-full">
+      <section className="w-[600px] h-full hidden lg:flex">
         <img
           src="https://liontrex.com/images/user/signup.png"
           alt="Sign Up Page"
@@ -83,61 +88,97 @@ const Main = () => {
                 <div className="w-full flex flex-col mr-3">
                   <label>First Name</label>
                   <input
-                    className="h-12 px-2 text-md outline-none border border-inputBorder rounded-md "
+                    className={`${
+                      error?.error?.firstname || error?.error
+                        ? "h-12 px-2 text-md outline-none border border-dangerBorder rounded-md"
+                        : "h-12 px-2 text-md outline-none border border-inputBorder rounded-md "
+                    }`}
                     type="text"
                     value={user.firstname}
                     onChange={(e) =>
                       setUser({ ...user, firstname: e.target.value })
                     }
                   />
+                  <p className="text-sm text-danger font-normal">
+                    <span>{error?.error?.firstname}</span>
+                  </p>
                 </div>
                 <div className="w-full flex flex-col">
                   <label>Last Name</label>
                   <input
-                    className="h-12 px-2 outline-none border border-inputBorder rounded-md"
+                    className={`${
+                      error?.error?.lastname || error?.error
+                        ? "h-12 px-2 text-md outline-none border border-dangerBorder rounded-md"
+                        : "h-12 px-2 text-md outline-none border border-inputBorder rounded-md "
+                    }`}
                     type="text"
                     value={user.lastname}
                     onChange={(e) =>
                       setUser({ ...user, lastname: e.target.value })
                     }
                   />
+                  <p className="text-sm text-danger font-normal">
+                    <span>{error?.error?.lastname}</span>
+                  </p>
                 </div>
               </div>
             )}
             <div className="flex flex-col py-3">
               <label>Email Address</label>
               <input
-                className="h-12 px-2 outline-none border border-inputBorder rounded-md"
+                className={`${
+                  error?.error?.email || error?.error
+                    ? "h-12 px-2 outline-none border border-dangerBorder rounded-md"
+                    : "h-12 px-2 outline-none border border-inputBorder rounded-md"
+                }`}
                 type="email"
                 value={user.email}
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
               />
+              <p>
+                <span>{error?.error?.email}</span>
+              </p>
             </div>
+
             {location.pathname === "/signup" && (
               <div className="flex flex-col py-3">
                 <label>Confirm Email Address</label>
                 <input
-                  className="h-12 px-2 outline-none border border-inputBorder rounded-md"
+                  className={`${
+                    error?.error?.email || error?.error
+                      ? "h-12 px-2 outline-none border border-dangerBorder rounded-md"
+                      : "h-12 px-2 outline-none border border-inputBorder rounded-md"
+                  }`}
                   type="email"
                   value={user.confirmEmail}
                   onChange={(e) =>
                     setUser({ ...user, confirmEmail: e.target.value })
                   }
                 />
+                <p className="text-sm text-danger font-normal">
+                  <span>{error?.email}</span>
+                </p>
               </div>
             )}
             <div className="flex flex-col py-3">
               <label>Password</label>
               <input
-                className="h-12 px-2 outline-none border border-inputBorder rounded-md"
+                className={`${
+                  error?.error?.password || error?.error
+                    ? "h-12 px-2 text-md outline-none border border-dangerBorder rounded-md"
+                    : "h-12 px-2 text-md outline-none border border-inputBorder rounded-md"
+                }`}
                 type="password"
                 value={user.password}
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
+              <p className="text-sm text-danger font-normal">
+                <span>{error?.error?.password}</span>
+              </p>
             </div>
             <div className="h-12 flex items-center justify-center text-white text-lg font-bold my-4 rounded-md bg-buttonBackground">
               <button type="submit" className="w-full h-full">
-                Sign Up
+                {location.pathname === "/signup" ? "Sign Up" : "Login"}
               </button>
             </div>
           </form>

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import argon2 from "argon2";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -13,6 +12,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, "Lastname is required"],
       minlength: [3, "lastname is too short"],
+    },
+    profilePic: {
+      type: String,
+      default:
+        "https://i.pinimg.com/originals/da/4f/ad/da4fad3f0c9549a86a70dc90d9208e8d.jpg",
     },
     email: {
       type: String,
@@ -59,26 +63,22 @@ const UserSchema = new mongoose.Schema(
     resetPasswordExpire: Date,
   },
   {
+    toObject: { virtuals: true },
+    toJSON: { virtuals: true },
     timestamps: true,
   }
 );
+
+UserSchema.virtual("fullname").get(function () {
+  return [this.firstname, this.lastname].filter(Boolean).join(" ");
+});
 
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
 
-  this.password = await bcrypt.hash(this.password, 12);
+  this.password = await argon2.hash(this.password);
 });
-
-UserSchema.methods.getJWTToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
-  });
-};
-
-UserSchema.methods.comparePassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
-};
 
 export default mongoose.model("User", UserSchema);

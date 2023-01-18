@@ -10,6 +10,8 @@ import {
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
   LOAD_USER_FAILURE,
+  SIGNOUT_SUCCESS,
+  SIGNOUT_FAILURE,
 } from "./authContants";
 
 export const signUp =
@@ -62,5 +64,17 @@ export const loadProfile = () => async (dispatch) => {
     dispatch({ type: LOAD_USER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: LOAD_USER_FAILURE, payload: error.response.data });
+  }
+};
+
+export const signOutUser = () => async (dispatch) => {
+  try {
+    await axios.post("http://localhost:4000/api/signout", null, {
+      withCredentials: true,
+    });
+
+    dispatch({ type: SIGNOUT_SUCCESS });
+  } catch (error) {
+    dispatch({ type: SIGNOUT_FAILURE, payload: error.response.data });
   }
 };
